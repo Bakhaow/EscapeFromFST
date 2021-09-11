@@ -1,4 +1,4 @@
-/* Window drawing management */
+/* Window render management */
 
 #include <stdio.h>
 #include <SDL.h>
@@ -17,22 +17,54 @@ int init_sdl()
 
 SDL_Window* createWindow()
 {
-	SDL_Window* Window = NULL;
+	SDL_Window* win = NULL;
 
 	// window creation
-	Window = SDL_CreateWindow("EFST", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480, SDL_WINDOW_OPENGL);
+	win = SDL_CreateWindow("EFST", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480, SDL_WINDOW_OPENGL);
 
-	return Window;
+	return win;
 }
 
 SDL_Renderer* createRenderer(SDL_Window* win)
 {
-	//Declaring the variable for the Renderer context.
-	SDL_Renderer* Renderer = NULL;
+	SDL_Renderer* renderer = NULL;
 
-	//Create the Renderer with the window.
-	Renderer = SDL_CreateRenderer(win, -1, SDL_RENDERER_SOFTWARE);
+	// renderer creation
+	renderer = SDL_CreateRenderer(win, -1, SDL_RENDERER_SOFTWARE);
 
-	//Return the Renderer.
-	return Renderer;
+	return renderer;
+}
+
+void drawHollowedTri(SDL_Renderer* renderer, int x[], int y[], int z[], int color[], int alpha)
+{
+	SDL_SetRenderDrawColor(renderer, color[0], color[1], color[2], alpha);
+	SDL_RenderDrawLine(renderer, x[0], x[1], y[0], y[1]);
+	SDL_RenderDrawLine(renderer, y[0], y[1], z[0], z[1]);
+	SDL_RenderDrawLine(renderer, z[0], z[1], x[0], x[1]);
+}
+
+void drawTri(SDL_Renderer* renderer, int x[], int y[], int z[], int color[], int alpha)
+{
+	drawHollowedTri(renderer, x, y, z, color, alpha);
+	SDL_SetRenderDrawColor(renderer, 50, color[1], 50, alpha);
+	for (int i = x[0]; i < x[1]; i++) {
+		SDL_RenderDrawLine(renderer, x[0] + i, x[1], z[0], z[1]);
+	}
+}
+
+void draw(SDL_Renderer* Renderer)
+{
+	SDL_RenderClear(Renderer);
+
+	int x[] = { 100, 100 };
+	int y[] = { 300, 100 };
+	int z[] = { 100, 300 };
+	int color[] = { 255, 255, 255 };
+
+	//draw a square from 2 tri-angles
+	drawTri(Renderer, x, y, z, color, 0xFF);
+	x[0] = 300; x[1] = 300;
+	drawTri(Renderer, x, y, z, color, 0xFF);
+
+	SDL_RenderPresent(Renderer);
 }

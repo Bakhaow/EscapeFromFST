@@ -14,22 +14,24 @@ void debugging(char msg[]) {
 	printf("[EFST-DEBUG] %s\n", msg);
 }
 
-
+// Main
 int main(int argc, char* argv[]) {
+
 	debugging("start");
 	init_sdl();
 
-	SDL_Window* Window = createWindow();
+	debugging("sdl init end");
+	SDL_Window* win = createWindow();
 
-	SDL_Renderer* Renderer = createRenderer(Window);
+	SDL_Renderer* Renderer = createRenderer(win);
 
-	//Drawing!
 	draw(Renderer);
 
-	//Adding a delay.
+	debugging("window creation end");
 	SDL_Delay(2000);
 
 	debugging("end");
+
 	SDL_Quit();
 	return 0;
 }
