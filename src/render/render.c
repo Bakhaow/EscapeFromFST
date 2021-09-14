@@ -74,6 +74,28 @@ void drawTri(SDL_Renderer* renderer, int x[], int y[], int z[], int color[], int
 	}
 }
 
+void drawRect(SDL_Renderer* renderer, int x[], int y[], int z[], int a[], int color[], int alpha) {
+	drawHollowedTri(renderer, x, y, z, color, 0xFF);
+	drawHollowedTri(renderer, a, y, z, color, 0xFF);
+}
+
+void drawCube(SDL_Renderer* renderer, int x[], int y[], int z[], int a[], int color[], int alpha) {
+	int changement[] = { 50, -50 };
+	drawRect(renderer, x, y, z, a, color, 0xFF);
+	int x1[] = { y[0], y[1] };
+	int y1[] = { y[0] + changement[0], y[1] + changement[1] };
+	int z1[] = { a[0], a[1] };
+	int a1[] = { a[0] + changement[0], a[1] + changement[1] };
+	drawRect(renderer, x1, y1, z1, a1, color, 0xFF);
+
+	z1[0] = x[0]; z1[1] = x[1];
+	x1[0] = x[0] + changement[0]; x1[1] = x[1] + changement[1];
+	a1[0] = y[0]; a1[1] = y[1];
+	y1[0] = y[0] + changement[0]; y1[1] = y[1] + changement[1];
+
+	drawRect(renderer, x1, y1, z1, a1, color, 0xFF);
+}
+
 void draw(SDL_Renderer* renderer)
 {
 	SDL_RenderClear(renderer);
@@ -81,12 +103,11 @@ void draw(SDL_Renderer* renderer)
 	unsigned int x[] = { 100, 100 };
 	unsigned int y[] = { 300, 100 };
 	unsigned int z[] = { 100, 300 };
+	unsigned int a[] = { 300, 300 };
 	unsigned int color[] = { 255, 255, 255 };
 
-	//draw a square from 2 tri-angles
-	drawTri(renderer, x, y, z, color, 0xFF);
-	x[0] = 300; x[1] = 300;
-	drawTri(renderer, x, y, z, color, 0xFF);
+	drawCube(renderer, x, y, z, a, color, 0xFF);
+
 
 	SDL_RenderPresent(renderer);
 }
