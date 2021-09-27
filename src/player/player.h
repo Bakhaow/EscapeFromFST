@@ -7,7 +7,10 @@ typedef struct {
 	int zCoord;
 	int xOffset;
 	int yOffset;
-} player;
+} Player;
+
+Player* create_player(int xCoord, int yCoord, int zCoord, int xOffset, int yOffset);
+void free_player(Player* p);
 
 
 #endif

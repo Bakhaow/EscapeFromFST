@@ -2,6 +2,8 @@
 #include <SDL.h>
 
 #include "render/render.h"
+#include "player/player.h"
+#include "mapping/map.h"
 
 /*
  *
@@ -25,10 +27,16 @@ int main(int argc, char* argv[]) {
 
 	SDL_Renderer* Renderer = createRenderer(win);
 
+	//Map* map = create_map();
+
+	//Player* p = create_player(5, 5, 5, 0, 0);
+
+	//add_player(map, p->xCoord, p->yCoord, p->zCoord);
+
 	draw(Renderer);
 
 	debugging("window creation end");
-	SDL_Delay(2000);
+	SDL_Delay(20000);
 
 	debugging("end");
 
