@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 #include "render/render.h"
 #include "player/player.h"
@@ -27,16 +27,18 @@ int main(int argc, char* argv[]) {
 
 	SDL_Renderer* Renderer = createRenderer(win);
 
-	//Map* map = create_map();
+	Map* map = create_map();
 
-	//Player* p = create_player(5, 5, 5, 0, 0);
+	Player* p = create_player(4, 4, 4, 0, 0);
 
-	//add_player(map, p->xCoord, p->yCoord, p->zCoord);
-
-	draw(Renderer);
+	add_player(map, p->xCoord, p->yCoord, p->zCoord);
+	//printf("Player coords: x %d, y %d, z %d\n", p->xCoord, p->yCoord, p->zCoord);
+	//print_map(map);
+	//draw(Renderer);
+	drawMap2D(Renderer, map->map);
 
 	debugging("window creation end");
-	SDL_Delay(20000);
+	SDL_Delay(2000);
 
 	debugging("end");
 

@@ -7,7 +7,7 @@ Map* create_map() {
 	for (i = 0; i < MAP_SIZE; i++) {
 		for (j = 0; j < MAP_SIZE; j++) {
 			for (k = 0; k < MAP_SIZE; k++) {
-				//m->map[i][j][k] = EMPTY_SLOT;
+				m->map[i][j][k] = EMPTY_SLOT;
 			}
 		}
 	}
@@ -28,5 +28,19 @@ void free_map(Map* map) {
 }
 
 void add_player(Map* map, int xCoord, int yCoord, int zCoord) {
-	//map->map[xCoord][yCoord][zCoord] = PLAYER_SLOT;
+	map->map[xCoord][yCoord][zCoord] = PLAYER_SLOT;
+}
+
+void print_map(Map* m) {
+	unsigned int i, j, k;
+	for (i = 0; i < MAP_SIZE; i++) {
+		for (j = 0; j < MAP_SIZE; j++) {
+			for (k = 0; k < MAP_SIZE; k++) {
+				printf("%d", m->map[i][j][k]);
+			}
+			printf("\n");
+		}
+		printf("\n");
+		printf("\n");
+	}
 }

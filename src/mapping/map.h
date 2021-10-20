@@ -14,6 +14,7 @@ typedef struct {
 Map* create_map();
 void free_map(Map* map);
 void add_player(Map* map, int xCoord, int yCoord, int zCoord);
+void print_map(Map* map);
 
 
 #endif
