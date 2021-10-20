@@ -7,7 +7,7 @@
 #define SCREEN_WIDTH 1080
 #define SCREEN_HEIGHT 720
 
-int init_sdl();
+int initSDL();
 
 SDL_Window* createWindow();
 SDL_Renderer* createRenderer(SDL_Window* Window);

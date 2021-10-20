@@ -6,7 +6,7 @@
 #include "render.h"
 #include "../mapping/map.h"
 
-int init_sdl()
+int initSDL()
 {
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
 	{

@@ -11,10 +11,10 @@ typedef struct {
 	int players;
 } Map;
 
-Map* create_map();
-void free_map(Map* map);
-void add_player(Map* map, int xCoord, int yCoord, int zCoord);
-void print_map(Map* map);
+Map* createMap();
+void freeMap(Map* map);
+void updatePlayerPosition(Map* map, int xCoord, int yCoord, int zCoord);
+void printMap(Map* map);
 
 
 #endif

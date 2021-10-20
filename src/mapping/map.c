@@ -1,6 +1,7 @@
 #include "map.h"
 
-Map* create_map() {
+// creer une map
+Map* createMap() {
 	Map* m = calloc(2, sizeof(Map));
 
 	unsigned int i, j, k;
@@ -15,7 +16,8 @@ Map* create_map() {
 	return m;
 }
 
-void free_map(Map* map) {
+// liberer l'espace memoire de la map
+void freeMap(Map* map) {
 	unsigned int i, j, k;
 	for (i = 0; i < MAP_SIZE; i++) {
 		for (j = 0; j < MAP_SIZE; j++) {
@@ -27,11 +29,13 @@ void free_map(Map* map) {
 	free(map);
 }
 
-void add_player(Map* map, int xCoord, int yCoord, int zCoord) {
+// on ajoute un joueur sur la map
+void updatePlayerPosition(Map* map, int xCoord, int yCoord, int zCoord) {
 	map->map[xCoord][yCoord][zCoord] = PLAYER_SLOT;
 }
 
-void print_map(Map* m) {
+// affiche la carte
+void printMap(Map* m) {
 	unsigned int i, j, k;
 	for (i = 0; i < MAP_SIZE; i++) {
 		for (j = 0; j < MAP_SIZE; j++) {
