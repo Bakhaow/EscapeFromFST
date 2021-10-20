@@ -9,8 +9,8 @@
   
 ## Authors
 
- Beluche Quentin @Onin88
- Chahboune Safwane @Bakhaow
+ * _Beluche Quentin **@Onin88**_
+ * _Chahboune Safwane **@Bakhaow**_
  
 ## Usage
 
