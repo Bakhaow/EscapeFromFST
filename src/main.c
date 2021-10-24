@@ -23,9 +23,9 @@ int handle_events(SDL_Event *e, Player *p) {
 		if(e->type == SDL_MOUSEMOTION) {
 			int xOff = (e->motion.xrel) - ((SCREEN_WIDTH / 2) * 64);
 			if(xOff > 0) {
-				p->xOffset += 0.25;
+				p->xOffset += 0.05;
 			} else {
-				p->xOffset -= 0.25;
+				p->xOffset -= 0.05;
 			}
 		}
 		if(e->type == SDL_KEYDOWN){
@@ -34,6 +34,14 @@ int handle_events(SDL_Event *e, Player *p) {
 					SDL_Quit();
 					debugging("end");
 					return 1;
+				case SDLK_z:
+					p->xCoord += 1;
+				case SDLK_s:
+					p->xCoord -= 1;
+				case SDLK_q:
+					p->yCoord -= 1;
+				case SDLK_d:
+					p->yCoord += 1;
 			}
 		}
 	}
@@ -57,11 +65,10 @@ int main(int argc, char* argv[]) {
 
 	SDL_SetRelativeMouseMode(SDL_TRUE);
 
-	SDL_RenderClear(renderer);
 	while(gameState == 0) {
+		renderBackground(renderer);
 		gameState = handle_events(event, p);
 		draw(renderer, map, p);
-		SDL_Delay(100);
 		SDL_RenderPresent(renderer);
 	}
 

@@ -219,7 +219,7 @@ void drawMap3D(SDL_Renderer* renderer, Map* m, Player* p) {
 
 	for(size_t i = 0; i < SCREEN_WIDTH; i++) {
 		float angle = p->xOffset - fov / 2 + fov * i / (float) SCREEN_WIDTH;
-		SDL_SetRenderDrawColor(renderer, 50, 50, 50, 0xFF);
+		SDL_SetRenderDrawColor(renderer, 200, 200, 200, 0xFF);
 		float c = 0;
 		float x, y;
 		for (; c<20; c+=.05) {
@@ -246,4 +246,11 @@ void draw(SDL_Renderer* renderer, Map * m, Player * p)
 		drawMap3D(renderer, m, p);
 	}*/
 	drawMap3D(renderer, m, p);
+}
+
+void renderBackground(SDL_Renderer* renderer) {
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);
+	drawFilledRect(renderer, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT / 2);
+	SDL_SetRenderDrawColor(renderer, 100, 100, 100, 0xFF);
+	drawFilledRect(renderer, 0, SCREEN_HEIGHT / 2, SCREEN_WIDTH, SCREEN_HEIGHT / 2);
 }

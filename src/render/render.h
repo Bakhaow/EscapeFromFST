@@ -21,6 +21,7 @@ void drawFilledTri(SDL_Renderer* renderer, int x, int x1, int y, int y1, int z, 
 void drawCircle(SDL_Renderer * renderer, int32_t centreX, int32_t centreY, int32_t radius);
 void drawMap2D(SDL_Renderer* renderer, int map[MAP_SIZE][MAP_SIZE]);
 void draw(SDL_Renderer* renderer, Map * m, Player * p);
+void renderBackground(SDL_Renderer* renderer);
 
 
 #endif
