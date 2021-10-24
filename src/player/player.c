@@ -1,6 +1,6 @@
 #include "player.h"
 
-Player* create_player(int x, int y, int z, int xOff, int yOff) {
+Player* createPlayer(int x, int y, int z, int xOff, int yOff) {
 	Player *p = calloc(5, sizeof(Player));
 
 	p->xCoord = x;
@@ -12,11 +12,6 @@ Player* create_player(int x, int y, int z, int xOff, int yOff) {
 	return p;
 }
 
-void free_player(Player* p) {
-	free(p->xCoord);
-	free(p->yCoord);
-	free(p->zCoord);
-	free(p->xOffset);
-	free(p->yOffset);
+void freePlayer(Player* p) {
 	free(p);
 }

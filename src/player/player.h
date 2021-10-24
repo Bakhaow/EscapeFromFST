@@ -5,12 +5,12 @@ typedef struct {
 	int xCoord;
 	int yCoord;
 	int zCoord;
-	int xOffset;
-	int yOffset;
+	float xOffset;
+	float yOffset;
 } Player;
 
-Player* create_player(int xCoord, int yCoord, int zCoord, int xOffset, int yOffset);
-void free_player(Player* p);
+Player* createPlayer(int xCoord, int yCoord, int zCoord, int xOffset, int yOffset);
+void freePlayer(Player* p);
 
 
 #endif

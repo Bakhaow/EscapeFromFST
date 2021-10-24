@@ -16,32 +16,56 @@ void debugging(char msg[]) {
 	printf("[EFST-DEBUG] %s\n", msg);
 }
 
+// event handler
+int handle_events(SDL_Event *e, Player *p) {
+	Uint8 *keystates = calloc(1, sizeof(keystates));
+	while(SDL_PollEvent(e)) {
+		if(e->type == SDL_MOUSEMOTION) {
+			int xOff = (e->motion.xrel) - ((SCREEN_WIDTH / 2) * 64);
+			if(xOff > 0) {
+				p->xOffset += 0.25;
+			} else {
+				p->xOffset -= 0.25;
+			}
+		}
+		if(e->type == SDL_KEYDOWN){
+			switch(e->key.keysym.sym) {
+				case SDLK_ESCAPE :
+					SDL_Quit();
+					debugging("end");
+					return 1;
+			}
+		}
+	}
+	return 0;
+}
+
 // Main
 int main(int argc, char* argv[]) {
 
 	debugging("start");
-	init_sdl();
+	initSDL();
 
-	debugging("sdl init end");
 	SDL_Window* win = createWindow();
+	SDL_Renderer* renderer = createRenderer(win);
 
-	SDL_Renderer* Renderer = createRenderer(win);
+	Map* map = defaultMap();
+	Player* p = createPlayer(4, 4, 0, 1, 0);
 
-	Map* map = create_map();
+	SDL_Event* event = calloc(1, sizeof(SDL_Event));
+	int gameState = 0;
 
-	Player* p = create_player(4, 4, 4, 0, 0);
+	SDL_SetRelativeMouseMode(SDL_TRUE);
 
-	add_player(map, p->xCoord, p->yCoord, p->zCoord);
-	//printf("Player coords: x %d, y %d, z %d\n", p->xCoord, p->yCoord, p->zCoord);
-	//print_map(map);
-	//draw(Renderer);
-	drawMap2D(Renderer, map->map);
+	SDL_RenderClear(renderer);
+	while(gameState == 0) {
+		gameState = handle_events(event, p);
+		draw(renderer, map, p);
+		SDL_Delay(100);
+		SDL_RenderPresent(renderer);
+	}
 
-	debugging("window creation end");
-	SDL_Delay(2000);
-
-	debugging("end");
-
+	SDL_Delay(3000);
 	SDL_Quit();
 	return 0;
 }
