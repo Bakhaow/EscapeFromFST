@@ -5,6 +5,8 @@
 #include "player/player.h"
 #include "mapping/map.h"
 
+#define MOUSE_SENSITIVITY 1.1
+
 /*
  *
  *	EFST Main program
@@ -16,17 +18,20 @@ void debugging(char msg[]) {
 	printf("[EFST-DEBUG] %s\n", msg);
 }
 
+float calcOffset(float off) {
+    float temp = (off + 180.0f) / 360.0f;
+    return off - ((int)temp - (temp < 0.0f ? 1 : 0)) * 360.0f;
+}
+
 // event handler
-int handle_events(SDL_Event *e, Player *p) {
+int handle_events(SDL_Event *e, Player *p, SDL_Window *win, Map* m) {
 	Uint8 *keystates = calloc(1, sizeof(keystates));
 	while(SDL_PollEvent(e)) {
 		if(e->type == SDL_MOUSEMOTION) {
-			int xOff = (e->motion.xrel) - ((SCREEN_WIDTH / 2) * 64);
-			if(xOff > 0) {
-				p->xOffset += 0.05;
-			} else {
-				p->xOffset -= 0.05;
-			}
+			float xOff = (float) (e->motion.xrel) - ((SCREEN_WIDTH / 2) * 64);
+			xOff = xOff / ((SCREEN_WIDTH / 2.) * 64);
+			printf("xOff %f\n", xOff);
+			setPlayerOffset(p, xOff * MOUSE_SENSITIVITY, p->yOffset);
 		}
 		if(e->type == SDL_KEYDOWN){
 			switch(e->key.keysym.sym) {
@@ -35,13 +40,17 @@ int handle_events(SDL_Event *e, Player *p) {
 					debugging("end");
 					return 1;
 				case SDLK_z:
-					p->xCoord += 1;
+					movePlayerTo(m, p, p->xCoord - 1, p->yCoord, p->zCoord);
+					break;
 				case SDLK_s:
-					p->xCoord -= 1;
+					movePlayerTo(m, p, p->xCoord + 1, p->yCoord, p->zCoord);
+					break;
 				case SDLK_q:
-					p->yCoord -= 1;
+					movePlayerTo(m, p, p->xCoord, p->yCoord - 1, p->zCoord);
+					break;
 				case SDLK_d:
-					p->yCoord += 1;
+					movePlayerTo(m, p, p->xCoord, p->yCoord + 1, p->zCoord);
+					break;
 			}
 		}
 	}
@@ -58,7 +67,7 @@ int main(int argc, char* argv[]) {
 	SDL_Renderer* renderer = createRenderer(win);
 
 	Map* map = defaultMap();
-	Player* p = createPlayer(4, 4, 0, 1, 0);
+	Player* p = createPlayer(4, 4, 0, 0, 0);
 
 	SDL_Event* event = calloc(1, sizeof(SDL_Event));
 	int gameState = 0;
@@ -67,9 +76,11 @@ int main(int argc, char* argv[]) {
 
 	while(gameState == 0) {
 		renderBackground(renderer);
-		gameState = handle_events(event, p);
+		gameState = handle_events(event, p, win, map);
 		draw(renderer, map, p);
 		SDL_RenderPresent(renderer);
+		//p->xOffset += 0.05;
+		//printf("off %f\n", p->xOffset);
 	}
 
 	SDL_Delay(3000);

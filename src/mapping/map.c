@@ -42,11 +42,6 @@ void freeMap(Map* map) {
 	free(map);
 }
 
-// on ajoute un joueur sur la map
-void updatePlayerPosition(Map* map, int xCoord, int yCoord) {
-	map->map[xCoord][yCoord] = PLAYER_SLOT;
-}
-
 // affiche la carte
 void printMap(Map* m) {
 	unsigned int i, j;
@@ -56,4 +51,8 @@ void printMap(Map* m) {
 		}
 		printf("\n");
 	}
+}
+
+int canBeMovedTo(Map* m, int x, int y, int z) {
+	return (x < 0 || x >= MAP_SIZE || y < 0 || y >= MAP_SIZE || z < 0 || z >= MAP_SIZE || m->map[x][y] != EMPTY_SLOT) ? 0 : 1;
 }

@@ -240,11 +240,7 @@ void draw(SDL_Renderer* renderer, Map * m, Player * p)
 
 	/*drawMap2D(renderer, m->map);
 	drawPlayer2D(renderer, p);
-	drawRay(renderer, m, p);
-	for(int i = 0; i < 1; i += 0.2) {
-		p->xOffset += i;
-		drawMap3D(renderer, m, p);
-	}*/
+	drawRay(renderer, m, p);*/
 	drawMap3D(renderer, m, p);
 }
 

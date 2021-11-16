@@ -14,8 +14,7 @@ typedef struct {
 Map* createMap();
 Map* defaultMap();
 void freeMap(Map* map);
-void updatePlayerPosition(Map* map, int xCoord, int yCoord);
 void printMap(Map* map);
-
+int canBeMovedTo(Map* m, int x, int y, int z);
 
 #endif
