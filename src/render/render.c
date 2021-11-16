@@ -132,44 +132,6 @@ void drawCircle(SDL_Renderer * renderer, int32_t centreX, int32_t centreY, int32
    }
 }
 
-/*void drawFilledCircle(SDL_Renderer * renderer, int32_t centreX, int32_t centreY, int32_t radius)
-{
-	//WIP
-	const int32_t diameter = (radius * 2);
-
-   	int32_t x = (radius - 1);
-   	int32_t y = 0;
-   	int32_t tx = 1;
-   	int32_t ty = 1;
-   	int32_t error = (tx - diameter);
-
-	while (x >= y)
-	{
-		//  Each of the following renders an octant of the circle
-		SDL_RenderDrawPoint(renderer, centreX + x, centreY - y);
-		SDL_RenderDrawPoint(renderer, centreX + x, centreY + y);
-		SDL_RenderDrawPoint(renderer, centreX - x, centreY - y);
-		SDL_RenderDrawPoint(renderer, centreX - x, centreY + y);
-			SDL_RenderDrawPoint(renderer, centreX + y, centreY - x);
-		SDL_RenderDrawPoint(renderer, centreX + y, centreY + x);
-		SDL_RenderDrawPoint(renderer, centreX - y, centreY - x);
-		SDL_RenderDrawPoint(renderer, centreX - y, centreY + x);
-
-		if (error <= 0)
-		{
-			++y;
-			error += ty;
-			ty += 2;
-		}
-
-		if (error > 0)
-		{
-			--x;
-			tx += 2;
-			error += (tx - diameter);
-		}
-	}
-}*/
 
 void drawMap2D(SDL_Renderer* renderer, int map[MAP_SIZE][MAP_SIZE]) {
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0xFF);
