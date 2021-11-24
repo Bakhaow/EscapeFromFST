@@ -26,24 +26,25 @@ float calcOffset(float off) {
 /* XPM */
 static const char *arrow[] = {
   /* width height num_colors chars_per_pixel */
-  "    32    32        3            1",
+  "    32    32        4            1",
   /* colors */
   "X c #520000",
   ". c #ffff00",
+  "Y c #FF0000",
   "  c None",
   /* pixels */
   "X                               ",
   "XX                              ",
-  "X.X                             ",
+  "XXX                             ",
   "X..X                            ",
-  "X...X                           ",
-  "X....X                          ",
-  "X.....X                         ",
-  "X......X                        ",
-  "X.......X                       ",
-  "X........X                      ",
-  "X.....XXXXX                     ",
-  "X..X..X                         ",
+  "X.Y.X                           ",
+  "X.YY.X                          ",
+  "X.YYY.X                         ",
+  "X.YYYY.X                        ",
+  "X.YYYYY.X                       ",
+  "X.YYYYYY.X                      ",
+  "X.YYYYXXXXX                     ",
+  "X.YX..X                         ",
   "X.X X..X                        ",
   "XX  X..X                        ",
   "X    X..X                       ",
@@ -106,11 +107,21 @@ int handle_events(SDL_Event *e, Player *p, SDL_Window *win, Map* m) {
 	Uint8 *keystates = calloc(1, sizeof(keystates));
 	while(SDL_PollEvent(e)) {
 		if(e->type == SDL_MOUSEMOTION) {
-			float xOff = (float) (e->motion.xrel) - ((SCREEN_WIDTH / 2) * 64);
+			/*float xOff = (float) (e->motion.xrel) - ((SCREEN_WIDTH / 2) * 64);
 			xOff = xOff / ((SCREEN_WIDTH / 2.) * 64);
 			xOff = p->xOffset + (xOff / 200);
-			printf("xOff %f\n", xOff);
-			setPlayerOffset(p, xOff, p->yOffset);
+			printf("xOff %f\n", xOff);*/
+			float xOff;
+			if(e->motion.x > SCREEN_WIDTH / 2) {
+				xOff = 0.02;
+
+			} else if(e->motion.x < SCREEN_WIDTH / 2) {
+				xOff = -0.02;
+			} else {
+				xOff = 0;
+			}
+			setPlayerOffset(p, p->xOffset + xOff, p->yOffset);
+			SDL_WarpMouseInWindow(win, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 		}
 		if(e->type == SDL_KEYDOWN){
 			switch(e->key.keysym.sym) {
@@ -155,11 +166,11 @@ int main(int argc, char* argv[]) {
 	int gameState = 0;
 	SDL_Cursor * cursor;
 
+	SDL_FreeCursor(SDL_GetCursor());
 	cursor = init_system_cursor(arrow);
-	SDL_FreeCursor(cursor);
 	SDL_SetCursor(cursor);
-	SDL_ShowCursor(SDL_ENABLE);
-	SDL_SetRelativeMouseMode(SDL_TRUE);
+	//SDL_ShowCursor(SDL_DISABLE);
+	//SDL_SetRelativeMouseMode(SDL_TRUE);
 
 	while(gameState == 0) {
 		renderBackground(renderer);
