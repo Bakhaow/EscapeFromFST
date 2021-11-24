@@ -30,14 +30,13 @@ int handle_events(SDL_Event *e, Player *p, SDL_Window *win, Map* m) {
 		if(e->type == SDL_MOUSEMOTION) {
 			float xOff = (float) (e->motion.xrel) - ((SCREEN_WIDTH / 2) * 64);
 			xOff = xOff / ((SCREEN_WIDTH / 2.) * 64);
-			printf("xOff %f\n", xOff);
-			setPlayerOffset(p, xOff * MOUSE_SENSITIVITY, p->yOffset);
-			/*float xOff = (float) (e->motion.xrel) - ((SCREEN_WIDTH / 2) * 64);
-			xOff = xOff / ((SCREEN_WIDTH / 2.) * 64);
+			setPlayerOffset(p, xOff * MOUSE_SENSITIVITY, p->yOffset); //
+			/*
 			xOff = p->xOffset + (xOff / 200);
 			printf("xOff %f\n", xOff);
 			setPlayerOffset(p, xOff, p->yOffset);
-			SDL_WarpMouseInWindow(win, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);*/
+			SDL_WarpMouseInWindow(win, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+			*/
 		}
 		if(e->type == SDL_KEYDOWN){
 			switch(e->key.keysym.sym) {
