@@ -32,6 +32,12 @@ int handle_events(SDL_Event *e, Player *p, SDL_Window *win, Map* m) {
 			xOff = xOff / ((SCREEN_WIDTH / 2.) * 64);
 			printf("xOff %f\n", xOff);
 			setPlayerOffset(p, xOff * MOUSE_SENSITIVITY, p->yOffset);
+			/*float xOff = (float) (e->motion.xrel) - ((SCREEN_WIDTH / 2) * 64);
+			xOff = xOff / ((SCREEN_WIDTH / 2.) * 64);
+			xOff = p->xOffset + (xOff / 200);
+			printf("xOff %f\n", xOff);
+			setPlayerOffset(p, xOff, p->yOffset);
+			SDL_WarpMouseInWindow(win, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);*/
 		}
 		if(e->type == SDL_KEYDOWN){
 			switch(e->key.keysym.sym) {
@@ -50,6 +56,9 @@ int handle_events(SDL_Event *e, Player *p, SDL_Window *win, Map* m) {
 					break;
 				case SDLK_d:
 					movePlayerTo(m, p, p->xCoord, p->yCoord + 1, p->zCoord);
+					break;
+				case SDLK_c:
+					setPlayerOffset(p, p->xOffset * (-1), p->yOffset);
 					break;
 			}
 		}
