@@ -23,6 +23,84 @@ float calcOffset(float off) {
     return off - ((int)temp - (temp < 0.0f ? 1 : 0)) * 360.0f;
 }
 
+/* XPM */
+static const char *arrow[] = {
+  /* width height num_colors chars_per_pixel */
+  "    32    32        3            1",
+  /* colors */
+  "X c #520000",
+  ". c #ffff00",
+  "  c None",
+  /* pixels */
+  "X                               ",
+  "XX                              ",
+  "X.X                             ",
+  "X..X                            ",
+  "X...X                           ",
+  "X....X                          ",
+  "X.....X                         ",
+  "X......X                        ",
+  "X.......X                       ",
+  "X........X                      ",
+  "X.....XXXXX                     ",
+  "X..X..X                         ",
+  "X.X X..X                        ",
+  "XX  X..X                        ",
+  "X    X..X                       ",
+  "     X..X                       ",
+  "      X..X                      ",
+  "      X..X                      ",
+  "       XX                       ",
+  "                                ",
+  "                                ",
+  "                                ",
+  "                                ",
+  "                                ",
+  "                                ",
+  "                                ",
+  "                                ",
+  "                                ",
+  "                                ",
+  "                                ",
+  "                                ",
+  "                                ",
+  "0,0"
+};
+
+static SDL_Cursor *init_system_cursor(const char *image[])
+{
+  int i, row, col;
+  Uint8 data[4*32];
+  Uint8 mask[4*32];
+  int hot_x, hot_y;
+
+  i = -1;
+  for (row=0; row<32; ++row) {
+    for (col=0; col<32; ++col) {
+      if (col % 8) {
+        data[i] <<= 1;
+        mask[i] <<= 1;
+      } else {
+        ++i;
+        data[i] = mask[i] = 0;
+      }
+      switch (image[4+row][col]) {
+        case 'X':
+          data[i] |= 0x01;
+          mask[i] |= 0x01;
+          break;
+        case '.':
+          mask[i] |= 0x01;
+          break;
+        case ' ':
+          break;
+      }
+    }
+  }
+  sscanf(image[4+row], "%d,%d", &hot_x, &hot_y);
+  return SDL_CreateCursor(data, mask, 32, 32, hot_x, hot_y);
+}
+
 // event handler
 int handle_events(SDL_Event *e, Player *p, SDL_Window *win, Map* m) {
 	Uint8 *keystates = calloc(1, sizeof(keystates));
@@ -30,13 +108,9 @@ int handle_events(SDL_Event *e, Player *p, SDL_Window *win, Map* m) {
 		if(e->type == SDL_MOUSEMOTION) {
 			float xOff = (float) (e->motion.xrel) - ((SCREEN_WIDTH / 2) * 64);
 			xOff = xOff / ((SCREEN_WIDTH / 2.) * 64);
-			setPlayerOffset(p, xOff * MOUSE_SENSITIVITY, p->yOffset); //
-			/*
 			xOff = p->xOffset + (xOff / 200);
 			printf("xOff %f\n", xOff);
 			setPlayerOffset(p, xOff, p->yOffset);
-			SDL_WarpMouseInWindow(win, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
-			*/
 		}
 		if(e->type == SDL_KEYDOWN){
 			switch(e->key.keysym.sym) {
@@ -79,7 +153,12 @@ int main(int argc, char* argv[]) {
 
 	SDL_Event* event = calloc(1, sizeof(SDL_Event));
 	int gameState = 0;
+	SDL_Cursor * cursor;
 
+	cursor = init_system_cursor(arrow);
+	SDL_FreeCursor(cursor);
+	SDL_SetCursor(cursor);
+	SDL_ShowCursor(SDL_ENABLE);
 	SDL_SetRelativeMouseMode(SDL_TRUE);
 
 	while(gameState == 0) {
