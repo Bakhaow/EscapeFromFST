@@ -33,38 +33,38 @@ static const char *arrow[] = {
   "Y c #FF0000",
   "  c None",
   /* pixels */
-  "X                               ",
-  "XX                              ",
-  "XXX                             ",
-  "X..X                            ",
-  "X.Y.X                           ",
-  "X.YY.X                          ",
-  "X.YYY.X                         ",
-  "X.YYYY.X                        ",
-  "X.YYYYY.X                       ",
-  "X.YYYYYY.X                      ",
-  "X.YYYYXXXXX                     ",
-  "X.YX..X                         ",
-  "X.X X..X                        ",
-  "XX  X..X                        ",
-  "X    X..X                       ",
-  "     X..X                       ",
-  "      X..X                      ",
-  "      X..X                      ",
-  "       XX                       ",
-  "                                ",
-  "                                ",
-  "                                ",
-  "                                ",
-  "                                ",
-  "                                ",
-  "                                ",
-  "                                ",
-  "                                ",
-  "                                ",
-  "                                ",
-  "                                ",
-  "                                ",
+  "                Y                ",
+  "                Y                ",
+  "                Y                ",
+  "                Y                ",
+  "                Y                ",
+  "                Y                ",
+  "                Y                ",
+  "                Y                ",
+  "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY",
+  "                Y                ",
+  "                Y                ",
+  "                Y                ",
+  "                Y                ",
+  "                Y                ",
+  "                Y                ",
+  "                Y                ",
+  "                                 ",
+  "                                 ",
+  "                                 ",
+  "                                 ",
+  "                                 ",
+  "                                 ",
+  "                                 ",
+  "                                 ",
+  "                                 ",
+  "                                 ",
+  "                                 ",
+  "                                 ",
+  "                                 ",
+  "                                 ",
+  "                                 ",
+  "                                 ",
   "0,0"
 };
 
@@ -169,8 +169,8 @@ int main(int argc, char* argv[]) {
 	SDL_FreeCursor(SDL_GetCursor());
 	cursor = init_system_cursor(arrow);
 	SDL_SetCursor(cursor);
-	//SDL_ShowCursor(SDL_DISABLE);
-	//SDL_SetRelativeMouseMode(SDL_TRUE);
+	SDL_ShowCursor(SDL_ENABLE);
+	SDL_SetRelativeMouseMode(SDL_TRUE);
 
 	while(gameState == 0) {
 		renderBackground(renderer);
