@@ -34,26 +34,26 @@ int handle_events(SDL_Event *e, Player *p, SDL_Window *win, Map* m) {
             case SDLK_q:
                 p->angle += M_PI / 2;
                 fixAngle(p);
-                p->x -= p->dx * 0.2;
-                p->y -= p->dy * 0.2;
+                p->xCoord -= p->dx * 0.2;
+                p->yCoord -= p->dy * 0.2;
                 p->angle -= M_PI / 2;
                 fixAngle(p);
                 break;
             case SDLK_d:
                 p->angle += M_PI / 2;
                 fixAngle(p);
-                p->x += p->dx * 0.2;
-                p->y += p->dy * 0.2;
+                p->xCoord += p->dx * 0.2;
+                p->yCoord += p->dy * 0.2;
                 p->angle -= M_PI / 2;
                 fixAngle(p);
                 break;
             case SDLK_z:
-                p->x += p->dx * 0.2;
-                p->y += p->dy * 0.2;
+                p->xCoord += p->dx * 0.2;
+                p->yCoord += p->dy * 0.2;
                 break;
             case SDLK_s:
-                p->x -= p->dx * 0.2;
-                p->y -= p->dy * 0.2;
+                p->xCoord -= p->dx * 0.2;
+                p->yCoord -= p->dy * 0.2;
                 break;
             }
         }
@@ -85,25 +85,17 @@ int main(int argc, char* argv[]) {
 	SDL_Renderer* renderer = createRenderer(win);
 
 	Map* map = defaultMap();
-	Player* p = createPlayer(4, 4, 0, 0, 0);
+	Player* p = calloc(1, sizeof(Player));
+    init(p);
 
 	SDL_Event* event = calloc(1, sizeof(SDL_Event));
 	int gameState = 0;
-	SDL_Cursor * cursor;
-
-	SDL_FreeCursor(SDL_GetCursor());
-	cursor = init_system_cursor(arrow);
-	SDL_SetCursor(cursor);
-	SDL_ShowCursor(SDL_ENABLE);
-	SDL_SetRelativeMouseMode(SDL_TRUE);
 
 	while(gameState == 0) {
 		renderBackground(renderer);
 		gameState = handle_events(event, p, win, map);
 		draw(renderer, map, p);
 		SDL_RenderPresent(renderer);
-		//p->xOffset += 0.05;
-		//printf("off %f\n", p->xOffset);
 	}
 
 	SDL_Delay(3000);

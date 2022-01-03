@@ -1,8 +1,9 @@
 #include "player.h"
+#include <math.h>
 
 void init(Player *p) {
-    p->x = 3;
-    p->y = 3;
+    p->xCoord = 3;
+    p->yCoord = 3;
     p->dx = cos(p->angle);
     p->dy = sin(p->angle);
 }
