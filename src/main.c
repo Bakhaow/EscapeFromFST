@@ -18,11 +18,6 @@ void debugging(char msg[]) {
 	printf("[EFST-DEBUG] %s\n", msg);
 }
 
-float calcOffset(float off) {
-    float temp = (off + 180.0f) / 360.0f;
-    return off - ((int)temp - (temp < 0.0f ? 1 : 0)) * 360.0f;
-}
-
 
 // event handler
 int handle_events(SDL_Event *e, Player *p, SDL_Window *win, Map* m) {
