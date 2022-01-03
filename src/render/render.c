@@ -123,7 +123,7 @@ void drawRay(SDL_Renderer* renderer, Map* m, Player* p) {
 	const float fov = M_PI / 3;
 
 	for(size_t i = 0; i < SCREEN_WIDTH; i++) {
-		float angle = p->xOffset - fov / 2 + fov * i / (float) SCREEN_WIDTH;
+		float angle = p->angle - fov / 2 + fov * i / (float) SCREEN_WIDTH;
 		SDL_SetRenderDrawColor(renderer, 50, 50, 50, 0xFF);
 		float c = 0;
 		float x, y;
@@ -131,7 +131,7 @@ void drawRay(SDL_Renderer* renderer, Map* m, Player* p) {
 			x = p->xCoord + c*cos(angle);
 			y = p->yCoord + c*sin(angle);
 			//printf("\nEh: %d\n", m->map[(int)x][(int)y]);
-			if (m->map[(int)x][(int)y] != EMPTY_SLOT) break;
+			if (m->map[(int)y][(int)x] != EMPTY_SLOT) break;
 		}
 		int pX = WH * p->xCoord + WH / 2;
 		int pY = WH * p->yCoord + WH / 2;
@@ -153,7 +153,7 @@ void drawMap3D(SDL_Renderer* renderer, Map* m, Player* p) {
 		for (; c<20; c+=.05) {
 			x = p->xCoord + c*cos(angle);
 			y = p->yCoord + c*sin(angle);
-			if (map[(int)y][(int)x] != EMPTY_SLOT) {
+			if (m->map[(int)y][(int)x] != EMPTY_SLOT) {
 				size_t column_height = SCREEN_HEIGHT / c * cos(angle - p->angle);
 				SDL_RenderDrawLine(renderer, i, SCREEN_HEIGHT / 2 - column_height, i, SCREEN_HEIGHT / 2 + column_height / 2);
 			}
