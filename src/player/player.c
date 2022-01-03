@@ -25,11 +25,6 @@ void movePlayerTo(Map* m, Player* p, int x, int y, int z) {
 	}
 }
 
-void setPlayerOffset(Player* p, float xOff, float zOff) {
-	p->xOffset = xOff;
-	p->yOffset = zOff;
-}
-
 void freePlayer(Player* p) {
 	free(p);
 }
