@@ -96,9 +96,9 @@ int main(int argc, char* argv[]) {
 		gameState = handle_events(event, p, win, map);
 		draw(renderer, map, p);
 		SDL_RenderPresent(renderer);
+        SDL_ShowCursor(SDL_DISABLE);
 	}
 
-	SDL_Delay(3000);
 	SDL_Quit();
 	return 0;
 }
