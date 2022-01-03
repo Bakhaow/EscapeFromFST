@@ -116,6 +116,7 @@ void drawMap2D(SDL_Renderer* renderer, int map[MAP_SIZE][MAP_SIZE]) {
 void drawPlayer2D(SDL_Renderer* renderer, Player * p) {
 	SDL_SetRenderDrawColor(renderer, 0, 255, 0, 0xFF);
 	drawCircle(renderer, WH * p->xCoord + WH / 2, WH * p->yCoord + WH / 2, WH / 4);
+	SDL_RenderDrawLine(renderer, WH * p->xCoord + (WH / 2), WH * p->yCoord + (WH / 2), WH * (p->xCoord + p->dx) + (WH / 2), WH * (p->yCoord + p->dy) + (WH / 2));
 }
 
 void drawRay(SDL_Renderer* renderer, Map* m, Player* p) {
