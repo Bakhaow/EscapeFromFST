@@ -103,7 +103,7 @@ void drawMap2D(SDL_Renderer* renderer, int map[MAP_SIZE][MAP_SIZE]) {
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0xFF);
 	for(unsigned int i = 0; i < MAP_SIZE; i++) {
 		for(unsigned int j = 0; j < MAP_SIZE; j++) {
-			if(map[i][j] == FILLED_SLOT) {
+			if(map[j][i] == FILLED_SLOT) {
 				SDL_SetRenderDrawColor(renderer, 255/2, 255/2, 255/2, 0xFF);
 			} else {
 				SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0xFF);
