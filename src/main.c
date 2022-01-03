@@ -89,6 +89,7 @@ int main(int argc, char* argv[]) {
 
 	SDL_Event* event = calloc(1, sizeof(SDL_Event));
 	int gameState = 0;
+    SDL_ShowCursor(SDL_DISABLE);
 
 	while(gameState == 0) {
 		renderBackground(renderer);
