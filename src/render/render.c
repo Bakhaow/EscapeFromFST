@@ -59,40 +59,6 @@ void drawFilledRect(SDL_Renderer* renderer, int x, int y, int w, int h) {
 	SDL_RenderFillRect(renderer, &rect);
 }
 
-void drawTri(SDL_Renderer* renderer, int x, int x1, int y, int y1, int z, int z1) {
-	SDL_Point p[4] = {
-		{x, x1},
-		{y, y1},
-		{z, z1},
-		{x, x1}
-	};
-	SDL_RenderDrawLines(renderer, p, 4);
-}
-
-void drawFilledTri(SDL_Renderer* renderer, int x, int x1, int y, int y1, int z, int z1)
-{
-	// Méthode du barycentre
-	int maxX = max(x, max(y, z));
-	int minX = min(x, min(y, z));
-	int maxY = max(x1, max(y1, z1));
-	int minY = min(x1, min(y1, z1));
-
-	int v1[] = {y - x, y1 - x1};
-	int v2[] = {z - x, z1 - x1};
-
-	for (int i = minX; i <= maxX; i++) {
-		for (int j = minY; j <= maxY; j++) {
-			int q[] = {i - x, j - x1};
-
-			float s = crossProduct(q, v2) / crossProduct(v1, v2);
-			float t = crossProduct(v1, q) / crossProduct(v1, v2);
-
-			if ( (s >= 0) && (t >= 0) && (s + t <= 1)) {
-				SDL_RenderDrawPoint(renderer, i, j);
-			}
-		}
-	}
-}
 
 void drawCircle(SDL_Renderer * renderer, int32_t centreX, int32_t centreY, int32_t radius)
 {
