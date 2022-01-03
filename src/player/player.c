@@ -12,6 +12,16 @@ Player* createPlayer(int x, int y, int z, int xOff, int yOff) {
 	return p;
 }
 
+void fixAngle(Player* p) {
+    if(p->angle < 0) {
+        p->angle += 2 * M_PI;
+    } else if(p->angle > 2 * M_PI) {
+        p->angle -= 2 * M_PI;
+    }
+    p->dx = cos(p->angle);
+    p->dy = sin(p->angle);
+}
+
 void movePlayerTo(Map* m, Player* p, int x, int y, int z) {
 	if(canBeMovedTo(m, x, y, z)) {
 		p->xCoord = x;

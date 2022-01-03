@@ -4,18 +4,13 @@
 #include "../mapping/map.h"
 
 typedef struct {
-	int xCoord;
-	int yCoord;
-	int zCoord;
-	float xOffset;
-	float yOffset;
+	float xCoord, yCoord, dx, dy, angle;
 } Player;
 
-Player* createPlayer(int xCoord, int yCoord, int zCoord, int xOffset, int yOffset);
+void init(Player *p);
 void freePlayer(Player* p);
 
-void movePlayerTo(Map*  m, Player* p, int x, int y, int z);
-void setPlayerOffset(Player* p, float xOff, float zOff);
+void fixAngle(Player* p);
 
 
 #endif

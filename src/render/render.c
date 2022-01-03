@@ -39,7 +39,6 @@ SDL_Renderer* createRenderer(SDL_Window* win)
 	return renderer;
 }
 
-
 void drawFilledRect(SDL_Renderer* renderer, int x, int y, int w, int h) {
 	SDL_Rect rect;
 	rect.x = x;

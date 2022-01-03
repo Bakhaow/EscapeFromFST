@@ -18,6 +18,17 @@ void debugging(char msg[]) {
 	printf("[EFST-DEBUG] %s\n", msg);
 }
 
+void fixAngle(Player* p) {
+    if(p->angle < 0) {
+        p->angle += 2 * M_PI;
+    } else if(p->angle > 2 * M_PI) {
+        p->angle -= 2 * M_PI;
+    }
+    p->dx = cos(p->angle);
+    p->dy = sin(p->angle);
+}
+
+
 
 // event handler
 int handle_events(SDL_Event *e, Player *p, SDL_Window *win, Map* m) {
