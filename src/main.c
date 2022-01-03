@@ -22,49 +22,57 @@ void debugging(char msg[]) {
 // event handler
 int handle_events(SDL_Event *e, Player *p, SDL_Window *win, Map* m) {
 	Uint8 *keystates = calloc(1, sizeof(keystates));
-	while(SDL_PollEvent(e)) {
-		if(e->type == SDL_MOUSEMOTION) {
-			/*float xOff = (float) (e->motion.xrel) - ((SCREEN_WIDTH / 2) * 64);
-			xOff = xOff / ((SCREEN_WIDTH / 2.) * 64);
-			xOff = p->xOffset + (xOff / 200);
-			printf("xOff %f\n", xOff);*/
+    while (SDL_PollEvent(e))
+    {
+        if (e->type == SDL_KEYDOWN)
+        {
+            switch (e->key.keysym.sym)
+            {
+            case SDLK_ESCAPE:
+                SDL_Quit();
+                return 1;
+            case SDLK_q:
+                p->angle += M_PI / 2;
+                fixAngle(p);
+                p->x -= p->dx * 0.2;
+                p->y -= p->dy * 0.2;
+                p->angle -= M_PI / 2;
+                fixAngle(p);
+                break;
+            case SDLK_d:
+                p->angle += M_PI / 2;
+                fixAngle(p);
+                p->x += p->dx * 0.2;
+                p->y += p->dy * 0.2;
+                p->angle -= M_PI / 2;
+                fixAngle(p);
+                break;
+            case SDLK_z:
+                p->x += p->dx * 0.2;
+                p->y += p->dy * 0.2;
+                break;
+            case SDLK_s:
+                p->x -= p->dx * 0.2;
+                p->y -= p->dy * 0.2;
+                break;
+            }
+        }
+        if(e->type == SDL_MOUSEMOTION) {
 			float xOff;
 			if(e->motion.x > SCREEN_WIDTH / 2) {
-				xOff = 0.02;
-
+				xOff = 0.01;
 			} else if(e->motion.x < SCREEN_WIDTH / 2) {
-				xOff = -0.02;
+				xOff = -0.01;
 			} else {
 				xOff = 0;
 			}
-			setPlayerOffset(p, p->xOffset + xOff, p->yOffset);
-			SDL_WarpMouseInWindow(win, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
-		}
-		if(e->type == SDL_KEYDOWN){
-			switch(e->key.keysym.sym) {
-				case SDLK_ESCAPE :
-					SDL_Quit();
-					debugging("end");
-					return 1;
-				case SDLK_z:
-					movePlayerTo(m, p, p->xCoord - 1, p->yCoord, p->zCoord);
-					break;
-				case SDLK_s:
-					movePlayerTo(m, p, p->xCoord + 1, p->yCoord, p->zCoord);
-					break;
-				case SDLK_q:
-					movePlayerTo(m, p, p->xCoord, p->yCoord - 1, p->zCoord);
-					break;
-				case SDLK_d:
-					movePlayerTo(m, p, p->xCoord, p->yCoord + 1, p->zCoord);
-					break;
-				case SDLK_c:
-					setPlayerOffset(p, p->xOffset * (-1), p->yOffset);
-					break;
-			}
-		}
-	}
-	return 0;
+            p->angle += xOff;
+            fixAngle(p);
+			SDL_WarpMouseInWindow(SDL_GetWindowFromID(e->motion.windowID), SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+        }
+      
+    }
+    return 0;
 }
 
 // Main
