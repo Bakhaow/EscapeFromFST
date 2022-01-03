@@ -12,6 +12,13 @@ Player* createPlayer(int x, int y, int z, int xOff, int yOff) {
 	return p;
 }
 
+void init(Player *p) {
+    p->x = 3;
+    p->y = 3;
+    p->dx = cos(p->angle);
+    p->dy = sin(p->angle);
+}
+
 void fixAngle(Player* p) {
     if(p->angle < 0) {
         p->angle += 2 * M_PI;
