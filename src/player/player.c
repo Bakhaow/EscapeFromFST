@@ -17,14 +17,6 @@ void fixAngle(Player* p) {
     p->dy = sin(p->angle);
 }
 
-void movePlayerTo(Map* m, Player* p, int x, int y, int z) {
-	if(canBeMovedTo(m, x, y, z)) {
-		p->xCoord = x;
-		p->yCoord = y;
-		p->zCoord = z;
-	}
-}
-
 void freePlayer(Player* p) {
 	free(p);
 }
