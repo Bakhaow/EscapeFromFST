@@ -11,6 +11,12 @@
 
 int initSDL();
 
+typedef struct {
+	SDL_Surface* wall;
+    SDL_Texture* walltext;
+} Texture;
+
+
 SDL_Window* createWindow();
 SDL_Renderer* createRenderer(SDL_Window* Window);
 

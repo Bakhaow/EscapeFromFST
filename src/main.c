@@ -18,7 +18,6 @@ void debugging(char msg[]) {
 	printf("[EFST-DEBUG] %s\n", msg);
 }
 
-
 // event handler
 int handle_events(SDL_Event *e, Player *p, SDL_Window *win, Map* m) {
 	Uint8 *keystates = calloc(1, sizeof(keystates));
@@ -96,7 +95,6 @@ int main(int argc, char* argv[]) {
 		gameState = handle_events(event, p, win, map);
 		draw(renderer, map, p);
 		SDL_RenderPresent(renderer);
-        SDL_ShowCursor(SDL_DISABLE);
 	}
 
 	SDL_Quit();
