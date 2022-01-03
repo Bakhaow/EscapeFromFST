@@ -146,15 +146,15 @@ void drawMap3D(SDL_Renderer* renderer, Map* m, Player* p) {
 	const float fov = M_PI / 3;
 
 	for(size_t i = 0; i < SCREEN_WIDTH; i++) {
-		float angle = p->xOffset - fov / 2 + fov * i / (float) SCREEN_WIDTH;
+		float angle = p->angle - fov / 2 + fov * i / (float) SCREEN_WIDTH;
 		SDL_SetRenderDrawColor(renderer, 200, 200, 200, 0xFF);
 		float c = 0;
 		float x, y;
 		for (; c<20; c+=.05) {
 			x = p->xCoord + c*cos(angle);
 			y = p->yCoord + c*sin(angle);
-			if (m->map[(int)x][(int)y] != EMPTY_SLOT) {
-				size_t column_height = SCREEN_HEIGHT / c * cos(angle - p->xOffset);
+			if (map[(int)y][(int)x] != EMPTY_SLOT) {
+				size_t column_height = SCREEN_HEIGHT / c * cos(angle - p->angle);
 				SDL_RenderDrawLine(renderer, i, SCREEN_HEIGHT / 2 - column_height, i, SCREEN_HEIGHT / 2 + column_height / 2);
 			}
 		}
