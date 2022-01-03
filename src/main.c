@@ -23,51 +23,6 @@ float calcOffset(float off) {
     return off - ((int)temp - (temp < 0.0f ? 1 : 0)) * 360.0f;
 }
 
-/* XPM */
-static const char *arrow[] = {
-  /* width height num_colors chars_per_pixel */
-  "    32    32        4            1",
-  /* colors */
-  "X c #520000",
-  ". c #ffff00",
-  "Y c #FF0000",
-  "  c None",
-  /* pixels */
-  "                Y                ",
-  "                Y                ",
-  "                Y                ",
-  "                Y                ",
-  "                Y                ",
-  "                Y                ",
-  "                Y                ",
-  "                Y                ",
-  "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY",
-  "                Y                ",
-  "                Y                ",
-  "                Y                ",
-  "                Y                ",
-  "                Y                ",
-  "                Y                ",
-  "                Y                ",
-  "                                 ",
-  "                                 ",
-  "                                 ",
-  "                                 ",
-  "                                 ",
-  "                                 ",
-  "                                 ",
-  "                                 ",
-  "                                 ",
-  "                                 ",
-  "                                 ",
-  "                                 ",
-  "                                 ",
-  "                                 ",
-  "                                 ",
-  "                                 ",
-  "0,0"
-};
-
 static SDL_Cursor *init_system_cursor(const char *image[])
 {
   int i, row, col;
