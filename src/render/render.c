@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <SDL2/SDL.h>
 #include <math.h>
+#include <limits.h>
 
 #include "render.h"
 #include "../mapping/map.h"
@@ -24,6 +25,21 @@ EFST_Renderer* createEFST_Renderer() {
 	efstr->win = SDL_CreateWindow("Escape From FST", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_OPENGL);;
 	efstr->renderer = SDL_CreateRenderer(efstr->win, -1, SDL_RENDERER_SOFTWARE);
 	return efstr;
+}
+
+void initTextures(EFST_Renderer* efstr) {
+
+	//texture from files
+	SDL_Texture* sky = SDL_LoadBMP("textures/wood.bmp");
+	SDL_Texture* ground = SDL_LoadBMP("textures/wood.bmp");
+
+	//surfaces from textures
+	efstr->sky_texture = SDL_CreateTextureFromSurface(efstr->renderer, sky);
+    efstr->ground_texture = SDL_CreateTextureFromSurface(efstr->renderer, ground);
+    
+	//free mem
+	SDL_FreeSurface(sky);
+	SDL_FreeSurface(ground);
 }
 
 void drawFilledRect(EFST_Renderer* efstr, int x, int y, int w, int h) {
@@ -140,9 +156,60 @@ void draw(EFST_Renderer* efstr, Map * m, Player * p) {
 	drawMap3D(efstr, m, p);
 }
 
+void drawGround(EFST_Renderer* efstr){
+  SDL_Rect srcRect;
+  SDL_Rect destRect;
+  SDL_Rect degradeDestRect;
+
+  srcRect.x = 0;
+  srcRect.y = 0; 
+  srcRect.w = INT_MAX;
+  srcRect.h = INT_MAX;
+
+  destRect.x = 0;
+  destRect.y = SCREEN_HEIGHT/2; 
+  destRect.w = SCREEN_WIDTH;  
+  destRect.h = SCREEN_HEIGHT/2;
+
+  SDL_RenderCopy(efstr->renderer, efstr->ground_texture, &srcRect, &destRect);
+}
+
+void drawSky(EFST_Renderer* efstr){
+  SDL_Rect srcRect;
+  SDL_Rect destRect;
+  
+  srcRect.x = 0;
+  srcRect.y = 0;
+  srcRect.w = 1024;
+  srcRect.h = 1024;
+
+  destRect.x = 0;
+  destRect.y = 0;
+  destRect.w = SCREEN_WIDTH;
+  destRect.h = SCREEN_HEIGHT/2;
+
+  SDL_RenderCopy(efstr->renderer, efstr->sky_texture, &srcRect, &destRect);
+}
+
 void renderBackground(EFST_Renderer* efstr) {
+	drawGround(efstr);
+	//drawSky(efstr);
+	/*SDL_Rect srcRect;
+	SDL_Rect destRect;
+	
+	srcRect.x = 0;
+	srcRect.y = 0;
+	srcRect.w = SCREEN_WIDTH;
+	srcRect.h = SCREEN_HEIGHT/2;
+
+	destRect.x = 0;
+	destRect.y = 0;
+	destRect.w = SCREEN_WIDTH;
+	destRect.h = SCREEN_HEIGHT/2;
+
+	SDL_RenderCopy(efstr->renderer, efstr->sky_texture, &srcRect, &destRect);*/
 	SDL_SetRenderDrawColor(efstr->renderer, 0, 0, 0, 0xFF);
 	drawFilledRect(efstr, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT / 2);
-	SDL_SetRenderDrawColor(efstr->renderer, 100, 100, 100, 0xFF);
-	drawFilledRect(efstr, 0, SCREEN_HEIGHT / 2, SCREEN_WIDTH, SCREEN_HEIGHT / 2);
+	/*SDL_SetRenderDrawColor(efstr->renderer, 100, 100, 100, 0xFF);
+	drawFilledRect(efstr, 0, SCREEN_HEIGHT / 2, SCREEN_WIDTH, SCREEN_HEIGHT / 2);*/
 }

@@ -63,7 +63,6 @@ void readMapFromFile(Map* m, const char* filename) {
     FILE *fp = fopen(filename, "r");
     int counterx = 0, countery = 0;
     char ch;
-    
     if (fp == NULL) {
         printf("File is not available \n");
     } else {
@@ -78,9 +77,7 @@ void readMapFromFile(Map* m, const char* filename) {
                     counterx += 1;
                 }
             }
-
         }
     }
-
     fclose(fp);
 }

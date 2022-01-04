@@ -84,6 +84,7 @@ int main(int argc, char* argv[]) {
 	debugging("start");
 	initSDL();
     EFST_Renderer* efstr = createEFST_Renderer();
+    initTextures(efstr);
 
 	Map* map = calloc(2, sizeof(Map));
     readMapFromFile(map, "assets/map.txt");

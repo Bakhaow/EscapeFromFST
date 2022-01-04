@@ -15,17 +15,15 @@ typedef struct {
 
     SDL_Renderer* renderer;
     SDL_Window* win;
-	SDL_Surface* sky;
+
     SDL_Texture* sky_texture;
-
-    SDL_Surface* ground;
     SDL_Texture* ground_texture;
-
-    SDL_Surface* wall;
+    
     SDL_Texture* wall_texture;
 } EFST_Renderer;
 
 EFST_Renderer* createEFST_Renderer();
+void initTextures(EFST_Renderer* efstr);
 
 void drawFilledRect(EFST_Renderer* efst_renderer, int x, int y, int w, int h);
 void drawCircle(EFST_Renderer * efst_renderer, int32_t centreX, int32_t centreY, int32_t radius);
