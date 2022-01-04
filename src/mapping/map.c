@@ -1,3 +1,5 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include "map.h"
 
 // creer une map
@@ -53,6 +55,32 @@ void printMap(Map* m) {
 	}
 }
 
-int canBeMovedTo(Map* m, int x, int y, int z) {
-	return (x < 0 || x >= MAP_SIZE || y < 0 || y >= MAP_SIZE || z < 0 || z >= MAP_SIZE || m->map[x][y] != EMPTY_SLOT) ? 0 : 1;
+int canBeMovedTo(Map* m, float x, float y) {
+	return (x > 0 && x < MAP_SIZE && y > 0 && y < MAP_SIZE && m->map[(int) y][(int) x] == EMPTY_SLOT) ? 1 : 0;
+}
+
+void readMapFromFile(Map* m, const char* filename) {
+    FILE *fp = fopen(filename, "r");
+    int counterx = 0, countery = 0;
+    char ch;
+    
+    if (fp == NULL) {
+        printf("File is not available \n");
+    } else {
+        while ((ch = fgetc(fp)) != EOF)
+        {
+            if(ch == '1' || ch == '0') {
+                m->map[counterx][countery] = ch - '0';
+                if(counterx == 15) {
+                    counterx = 0;
+                    countery++;
+                } else {
+                    counterx += 1;
+                }
+            }
+
+        }
+    }
+
+    fclose(fp);
 }

@@ -170,7 +170,7 @@ void renderBackground(SDL_Renderer* renderer) {
 	drawFilledRect(renderer, 0, SCREEN_HEIGHT / 2, SCREEN_WIDTH, SCREEN_HEIGHT / 2);
 }
 
-void textures(Player* p, Texture* t, Map* m, SDL_Renderer* renderer){
+/*void textures(Player* p, Texture* t, Map* m, SDL_Renderer* renderer){
 	for (size_t j = 0; j < MAP_SIZE; j++) {
 		for (size_t i = 0; i < MAP_SIZE; i++) {
             if (m->map[i+j*MAP_SIZE]==' ') continue;
@@ -191,4 +191,4 @@ for (size_t j=0; j<map_h; j++) { // draw the map
             assert(icolor<ncolors);
             draw_rectangle(framebuffer, win_w, win_h, rect_x, rect_y, rect_w, rect_h, colors[icolor]);
         }
-    }
+    }*/

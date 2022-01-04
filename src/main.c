@@ -31,6 +31,7 @@ int handle_events(SDL_Event *e, Player *p, SDL_Window *win, Map* m) {
                 SDL_Quit();
                 return 1;
             case SDLK_q:
+                if(!canBeMovedTo(m, p->xCoord - p->dx * 0.2, p->yCoord - p->dy * 0.2)) break;
                 p->angle += M_PI / 2;
                 fixAngle(p);
                 p->xCoord -= p->dx * 0.2;
@@ -39,6 +40,7 @@ int handle_events(SDL_Event *e, Player *p, SDL_Window *win, Map* m) {
                 fixAngle(p);
                 break;
             case SDLK_d:
+                if(!canBeMovedTo(m, p->xCoord + p->dx * 0.2, p->yCoord + p->dy * 0.2)) break;
                 p->angle += M_PI / 2;
                 fixAngle(p);
                 p->xCoord += p->dx * 0.2;
@@ -47,10 +49,12 @@ int handle_events(SDL_Event *e, Player *p, SDL_Window *win, Map* m) {
                 fixAngle(p);
                 break;
             case SDLK_z:
+                if(!canBeMovedTo(m, p->xCoord + p->dx * 0.2, p->yCoord + p->dy * 0.2)) break;
                 p->xCoord += p->dx * 0.2;
                 p->yCoord += p->dy * 0.2;
                 break;
             case SDLK_s:
+                if(!canBeMovedTo(m, p->xCoord - p->dx * 0.2, p->yCoord - p->dy * 0.2)) break;
                 p->xCoord -= p->dx * 0.2;
                 p->yCoord -= p->dy * 0.2;
                 break;
@@ -83,9 +87,13 @@ int main(int argc, char* argv[]) {
 	SDL_Window* win = createWindow();
 	SDL_Renderer* renderer = createRenderer(win);
 
-	Map* map = defaultMap();
+	//Map* map = defaultMap();
+
+	Map* map = calloc(2, sizeof(Map));
+    readMapFromFile(map, "assets/map.txt");
 	Player* p = calloc(1, sizeof(Player));
     init(p);
+    printMap(map);
 
 	SDL_Event* event = calloc(1, sizeof(SDL_Event));
 	int gameState = 0;
