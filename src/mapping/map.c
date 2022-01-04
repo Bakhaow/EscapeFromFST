@@ -49,7 +49,7 @@ void printMap(Map* m) {
 	unsigned int i, j;
 	for (i = 0; i < MAP_SIZE; i++) {
 		for (j = 0; j < MAP_SIZE; j++) {
-				printf("%d", m->map[i][j]);
+				printf("%d", m->map[j][i]);
 		}
 		printf("\n");
 	}

@@ -93,7 +93,6 @@ int main(int argc, char* argv[]) {
     readMapFromFile(map, "assets/map.txt");
 	Player* p = calloc(1, sizeof(Player));
     init(p);
-    printMap(map);
 
 	SDL_Event* event = calloc(1, sizeof(SDL_Event));
 	int gameState = 0;
