@@ -56,7 +56,11 @@ void printMap(Map* m) {
 }
 
 int canBeMovedTo(Map* m, float x, float y) {
-	return (x > 0 && x < MAP_SIZE && y > 0 && y < MAP_SIZE && m->map[(int) y][(int) x] == EMPTY_SLOT) ? 1 : 0;
+	return (x > 0 && x < MAP_SIZE && y > 0 && y < MAP_SIZE && m->map[(int) y][(int) x] != FILLED_SLOT) ? 1 : 0;
+}
+
+int escape(Map* m, float x, float y) {
+	return m->map[(int) y][(int) x] == 2;
 }
 
 void readMapFromFile(Map* m, const char* filename) {

@@ -96,6 +96,11 @@ int main(int argc, char* argv[]) {
     SDL_ShowCursor(SDL_DISABLE);
 
 	while(gameState == 0) {
+        if(escape(map, p->xCoord, p->yCoord)) {
+            gameState = 0;
+            SDL_Quit();
+            printf("[EFST-GAME] YOU WIN");
+        }
 		renderBackground(efstr);
 		gameState = handle_events(event, p, efstr->win, map);
 		draw(efstr, map, p);

@@ -18,8 +18,8 @@ typedef struct {
 
     SDL_Texture* sky_texture;
     SDL_Texture* ground_texture;
-    
     SDL_Texture* wall_texture;
+    
 } EFST_Renderer;
 
 EFST_Renderer* createEFST_Renderer();
