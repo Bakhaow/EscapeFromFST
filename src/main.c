@@ -31,6 +31,7 @@ int handle_events(SDL_Event *e, Player *p, SDL_Window *win, Map* m) {
                 SDL_Quit();
                 return 1;
             case SDLK_q:
+                if(!canBeMovedTo(m, p->xCoord - p->dx * 0.2, p->yCoord - p->dy * 0.2)) break;
                 p->angle += M_PI / 2;
                 fixAngle(p);
                 p->xCoord -= p->dx * 0.2;
@@ -39,6 +40,7 @@ int handle_events(SDL_Event *e, Player *p, SDL_Window *win, Map* m) {
                 fixAngle(p);
                 break;
             case SDLK_d:
+                if(!canBeMovedTo(m, p->xCoord + p->dx * 0.2, p->yCoord + p->dy * 0.2)) break;
                 p->angle += M_PI / 2;
                 fixAngle(p);
                 p->xCoord += p->dx * 0.2;
@@ -47,10 +49,12 @@ int handle_events(SDL_Event *e, Player *p, SDL_Window *win, Map* m) {
                 fixAngle(p);
                 break;
             case SDLK_z:
+                if(!canBeMovedTo(m, p->xCoord + p->dx * 0.2, p->yCoord + p->dy * 0.2)) break;
                 p->xCoord += p->dx * 0.2;
                 p->yCoord += p->dy * 0.2;
                 break;
             case SDLK_s:
+                if(!canBeMovedTo(m, p->xCoord - p->dx * 0.2, p->yCoord - p->dy * 0.2)) break;
                 p->xCoord -= p->dx * 0.2;
                 p->yCoord -= p->dy * 0.2;
                 break;
@@ -79,11 +83,10 @@ int main(int argc, char* argv[]) {
 
 	debugging("start");
 	initSDL();
+    EFST_Renderer* efstr = createEFST_Renderer();
 
-	SDL_Window* win = createWindow();
-	SDL_Renderer* renderer = createRenderer(win);
-
-	Map* map = defaultMap();
+	Map* map = calloc(2, sizeof(Map));
+    readMapFromFile(map, "assets/map.txt");
 	Player* p = calloc(1, sizeof(Player));
     init(p);
 
@@ -92,10 +95,10 @@ int main(int argc, char* argv[]) {
     SDL_ShowCursor(SDL_DISABLE);
 
 	while(gameState == 0) {
-		renderBackground(renderer);
-		gameState = handle_events(event, p, win, map);
-		draw(renderer, map, p);
-		SDL_RenderPresent(renderer);
+		renderBackground(efstr);
+		gameState = handle_events(event, p, efstr->win, map);
+		draw(efstr, map, p);
+		SDL_RenderPresent(efstr->renderer);
 	}
 
 	SDL_Quit();

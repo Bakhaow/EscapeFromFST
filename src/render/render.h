@@ -12,20 +12,27 @@
 int initSDL();
 
 typedef struct {
-	SDL_Surface* wall;
-    SDL_Texture* walltext;
-} Texture;
 
+    SDL_Renderer* renderer;
+    SDL_Window* win;
+	SDL_Surface* sky;
+    SDL_Texture* sky_texture;
 
-SDL_Window* createWindow();
-SDL_Renderer* createRenderer(SDL_Window* Window);
+    SDL_Surface* ground;
+    SDL_Texture* ground_texture;
 
-void drawFilledRect(SDL_Renderer* renderer, int x, int y, int w, int h);
-void drawCircle(SDL_Renderer * renderer, int32_t centreX, int32_t centreY, int32_t radius);
-void drawMap2D(SDL_Renderer* renderer, int map[MAP_SIZE][MAP_SIZE]);
-void drawPlayer2D(SDL_Renderer* renderer, Player * p);
-void draw(SDL_Renderer* renderer, Map * m, Player * p);
-void renderBackground(SDL_Renderer* renderer);
+    SDL_Surface* wall;
+    SDL_Texture* wall_texture;
+} EFST_Renderer;
+
+EFST_Renderer* createEFST_Renderer();
+
+void drawFilledRect(EFST_Renderer* efst_renderer, int x, int y, int w, int h);
+void drawCircle(EFST_Renderer * efst_renderer, int32_t centreX, int32_t centreY, int32_t radius);
+void drawMap2D(EFST_Renderer* efst_renderer, int map[MAP_SIZE][MAP_SIZE]);
+void drawPlayer2D(EFST_Renderer* efst_renderer, Player * p);
+void draw(EFST_Renderer* efst_renderer, Map * m, Player * p);
+void renderBackground(EFST_Renderer* efst_renderer);
 
 
 #endif

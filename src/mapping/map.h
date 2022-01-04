@@ -2,8 +2,8 @@
 #define _MAP_H_
 
 #define MAP_SIZE 16
-#define EMPTY_SLOT 1
-#define FILLED_SLOT 2
+#define EMPTY_SLOT 0
+#define FILLED_SLOT 1
 
 typedef struct {
 	int map[MAP_SIZE][MAP_SIZE];
@@ -14,6 +14,7 @@ Map* createMap();
 Map* defaultMap();
 void freeMap(Map* map);
 void printMap(Map* map);
-int canBeMovedTo(Map* m, int x, int y, int z);
+int canBeMovedTo(Map* m, float x, float y);
+void readMapFromFile(Map* m, const char* filename);
 
 #endif
