@@ -83,11 +83,7 @@ int main(int argc, char* argv[]) {
 
 	debugging("start");
 	initSDL();
-
-	SDL_Window* win = createWindow();
-	SDL_Renderer* renderer = createRenderer(win);
-
-	//Map* map = defaultMap();
+    EFST_Renderer* efstr = createEFST_Renderer();
 
 	Map* map = calloc(2, sizeof(Map));
     readMapFromFile(map, "assets/map.txt");
@@ -98,10 +94,10 @@ int main(int argc, char* argv[]) {
 	int gameState = 0;
 
 	while(gameState == 0) {
-		renderBackground(renderer);
-		gameState = handle_events(event, p, win, map);
-		draw(renderer, map, p);
-		SDL_RenderPresent(renderer);
+		renderBackground(efstr);
+		gameState = handle_events(event, p, efstr->win, map);
+		draw(efstr, map, p);
+		SDL_RenderPresent(efstr->renderer);
 	}
 
 	SDL_Quit();
