@@ -21,7 +21,7 @@ git clone https://github.com/Bakhaow/EscapeFromFST.git
 
 Step 2: compile the game
 ```
-cd src
+cd EscapeFromFST/src
 make
 ```
 
